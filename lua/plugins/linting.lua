@@ -15,6 +15,9 @@ return {
         typescriptreact = { "eslint_d" },
         svelte = { "eslint_d" },
         python = { "pylint" },
+        swift = { "swiftlint" },
+        ruby = { "standardrb" },
+        actionlint = { "actionlint" }
       }
 
       vim.keymap.set("n", "<leader>l", function()

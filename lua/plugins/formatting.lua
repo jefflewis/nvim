@@ -6,6 +6,10 @@ return {
       local conform = require("conform")
 
       conform.setup({
+        format_on_save = {
+          timeout_ms = 1500,
+          lsp_format = "fallback"
+        },
         formatters_by_ft = {
           css = { { "prettierd", "prettier" } },
           graphql = { { "prettierd", "prettier" } },
@@ -16,7 +20,9 @@ return {
           lua = { "stylua" },
           markdown = { { "prettierd", "prettier" } },
           python = { "isort", "black" },
+          ruby = { "standardrb" },
           sql = { "sql-formatter" },
+          swift = { "swift_format" },
           svelte = { { "prettierd", "prettier" } },
           typescript = { { "prettierd", "prettier", "sql-formatter" } },
           typescriptreact = { { "prettierd", "prettier" } },
@@ -28,16 +34,16 @@ return {
       vim.keymap.set({ "n" }, "<leader>f", function()
         conform.format({
           lsp_fallback = true,
-          async = false,
-          timeout_ms = 500,
+          async = true,
+          --timeout_ms = 1500,
         })
       end, { desc = "format file" })
 
       vim.keymap.set({ "v" }, "<leader>f", function()
         conform.format({
           lsp_fallback = true,
-          async = false,
-          timeout_ms = 500,
+          async = true,
+          --timeout_ms = 1500,
         })
       end, { desc = "format selection" })
 

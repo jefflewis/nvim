@@ -88,6 +88,8 @@ wk.add({
 wk.add({
   { "<leader>c",  group = "LSP",                                      mode = { "n", "v" } },
   { "<leader>ca", desc = "code action",                               mode = { "n", "v" } },
+  { "<leader>cd", "<cmd>Trouble diagnostics toggle<CR>",              desc = "diagnostics (Trouble)" },
+  { "<leader>cD", "<cmd>Telescope diagnostics wrap_results=true<CR>", desc = "workspace diagnostics" },
   { "<leader>cf", desc = "format",                                    mode = { "n", "v" } },
   { "<leader>cl", desc = "line diagnostics" },
   { "<leader>cr", desc = "rename" },
@@ -97,6 +99,22 @@ wk.add({
 
 wk.add({
   { "<leader>d", group = "Debug" },
+  { "<leader>da", desc = "attach" },
+  { "<leader>db", desc = "breakpoint" },
+  { "<leader>dc", desc = "continue" },
+  { "<leader>dC", desc = "close UI" },
+  { "<leader>dd", desc = "continue" },
+  { "<leader>dh", desc = "visual hover" },
+  { "<leader>di", desc = "step into" },
+  { "<leader>do", desc = "step over" },
+  { "<leader>dO", desc = "step out" },
+  { "<leader>dr", desc = "repl" },
+  { "<leader>ds", desc = "scopes" },
+  { "<leader>dt", desc = "terminate" },
+  { "<leader>dU", desc = "open UI" },
+  { "<leader>dv", desc = "log variable" },
+  { "<leader>dV", desc = "log variable above" },
+  { "<leader>dw", desc = "watches" },
 })
 
 wk.add({
@@ -104,6 +122,7 @@ wk.add({
   { "<leader>ga",  "<cmd>!git add %:p<CR>",           desc = 'add current' },
   { "<leader>gA",  "<cmd>!git add .<CR>",             desc = 'add all' },
   { "<leader>gb",  "<cmd>BlameToggle window<CR>",     desc = 'blame' },
+  { "<leader>gB",  "<cmd>Telescope git_branches<CR>",                                     desc = 'branches' },
   { "<leader>gc",  group = "Conflict" },
   { "<leader>gh",  group = "Hunk" },
   { "<leader>ghr", desc = "reset hunk",               mode = { "v" } },
@@ -112,6 +131,7 @@ wk.add({
   { "<leader>gl",  group = "Log" },
   { "<leader>gm",  desc = 'blame line' },
   { "<leader>gp",  "<cmd>Octo pr list<CR>",           desc = 'Pull Requests List' },
+  { "<leader>gs",  "<cmd>Telescope git_status<CR>",                                       desc = 'telescope status' },
   { "<leader>gw",  group = "Worktree" },
   { "<leader>gww", desc = 'worktrees' },
   { "<leader>gwc", desc = 'create worktree' },
@@ -120,6 +140,7 @@ wk.add({
 wk.add({
   { "<leader>p",  group = "Project" },
   { "<leader>pf", desc = "file" },
+  { "<leader>pw", desc =  "word"  },
   { "<leader>pw", desc = "word" },
   { "<leader>pr", desc = "refactor",                                                                                                                                                                                             mode = { "v", "n" } },
   { "<leader>pt", "<cmd>TodoTrouble<CR>",                                                                                                                                                                                        desc = "todo" },
@@ -131,6 +152,13 @@ wk.add({
 
 wk.add({
   { "<leader>s",  group = "Search" },
+  { "<leader>sc", "<cmd>Telescope colorscheme<CR>",                                  desc = "color schemes" },
+  { "<leader>sd", "<cmd>lua require('plugins.telescope.pickers').edit_neovim()<CR>", desc = "dotfiles" },
+  { "<leader>sf", "<cmd>Telescope find_files<CR>",                                   desc = "files" },
+  { "<leader>sh", "<cmd>Telescope oldfiles hidden=true<CR>",                         desc = "file history" },
+  { "<leader>sH", "<cmd>lua require('plugins.telescope').command_history()<CR>",     desc = "command history" },
+  { "<leader>ss", "<cmd>Telescope search_history theme=dropdown<CR>",                desc = "search history" },
+  { "<leader>sq", "<cmd>Telescope quickfix<CR>",                                     desc = "quickfix list" },
 })
 
 wk.add({
@@ -179,6 +207,12 @@ local function attach_npm(bufnr)
   })
 end
 
+local function attach_zen(bufnr)
+  wk.add({
+    { "<leader>z", "<cmd>ZenMode<CR>", buffer = bufnr, desc = "zen", nowait = false, remap = false },
+  })
+end
+
 local function attach_jest(bufnr)
   wk.add({
     { buffer = bufnr },
@@ -214,6 +248,7 @@ return {
   attach_markdown = attach_markdown,
   attach_typescript = attach_typescript,
   attach_npm = attach_npm,
+  attach_zen = attach_zen,
   attach_jest = attach_jest,
   attach_spectre = attach_spectre,
   attach_nvim_tree = attach_nvim_tree,

@@ -24,6 +24,8 @@ mason_lsp.setup({
     "lua_ls",
     "prismals",
     "tailwindcss",
+    "ts_ls",
+    "ruby_lsp"
   },
   -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   -- This setting has no relation with the `ensure_installed` setting.
@@ -156,3 +158,11 @@ require("ufo").setup({
   fold_virt_text_handler = ufo_config_handler,
   close_fold_kinds_for_ft = { default = { "imports" } },
 })
+
+lspconfig.sourcekit.setup({
+  capabilities = capabilities, 
+  handlers = handlers,
+  on_attach = on_attach,
+  cmd = { vim.trim(vim.fn.system("xcrun -f sourcekit-lsp")) },
+})
+

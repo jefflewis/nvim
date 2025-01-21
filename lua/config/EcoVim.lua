@@ -9,9 +9,9 @@
 local icons = require("utils.icons")
 
 EcoVim = {
-  colorscheme = "tokyonight-night",
+  colorscheme = "xcodedark",
   ui = {
-    font = { "FiraCode Nerd Font", ":h14" },
+    font = { "OperatorMonoLig Nerd Font", ":h16" },
     float = {
       border = "rounded",
     },
@@ -41,6 +41,13 @@ EcoVim = {
       -- Removing package.json from list in Monorepo Frontend Project can be helpful
       -- By that your live_grep will work related to whole project, not specific package
       patterns = { ".git", "package.json", "_darcs", ".bzr", ".svn", "Makefile" }, -- Default
+    },
+    -- <leader>z
+    zen = {
+      alacritty_enabled = false,
+      kitty_enabled = false,
+      wezterm_enabled = false,
+      enabled = true, -- sync after change
     },
   },
   -- Please keep it
