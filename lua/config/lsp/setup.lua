@@ -25,7 +25,7 @@ mason_lsp.setup({
     "prismals",
     "tailwindcss",
     "ts_ls",
-    "ruby_lsp"
+    "ruby_lsp",
   },
   -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   -- This setting has no relation with the `ensure_installed` setting.
@@ -151,7 +151,27 @@ require("mason-lspconfig").setup_handlers {
       on_attach = require("config.lsp.servers.vuels").on_attach,
       settings = require("config.lsp.servers.vuels").settings,
     })
+  end,
+
+  ["graphql"] = function()
+    lspconfig.graphql.setup({
+      capabilities = capabilities,
+      handlers = handlers,
+      on_attach = on_attach,
+      settings = require("config.lsp.servers.graphql").settings,
+    })
   end
+
+  -- ['sonarlint-language-server'] = function()
+  --   lspconfig['sonarlint-language-server'].setup({
+  --     settings = require('config.lsp.servers.sonarlint').settings,
+  --     cmd = require('config.lsp.servers.sonarlint').cmd,
+  --     filetypes = require('config.lsp.servers.sonarlint').filetypes,
+  --     handlers = handlers,
+  --     on_attach = on_attach,
+  --     capabilities = capabilities,
+  --   })
+  -- end
 }
 
 require("ufo").setup({
@@ -160,9 +180,42 @@ require("ufo").setup({
 })
 
 lspconfig.sourcekit.setup({
-  capabilities = capabilities, 
+  capabilities = capabilities,
   handlers = handlers,
   on_attach = on_attach,
   cmd = { vim.trim(vim.fn.system("xcrun -f sourcekit-lsp")) },
 })
 
+-- require('sonarlint').setup({
+--   server = {
+--     cmd = {
+--       'sonarlint-language-server',
+--       -- Ensure that sonarlint-language-server uses stdio channel
+--       '-stdio',
+--       '-analyzers',
+--       -- paths to the analyzers you need, using those for python and java in this example
+--       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarpython.jar"),
+--       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarcfamily.jar"),
+--       vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjava.jar"),
+--     },
+--     -- All settings are optional
+--     settings = {
+--       -- The default for sonarlint is {}, this is just an example
+--       sonarlint = {
+--         rules = {
+--           ['typescript:S101'] = { level = 'on', parameters = { format = '^[A-Z][a-zA-Z0-9]*$' } },
+--           ['typescript:S103'] = { level = 'on', parameters = { maximumLineLength = 180 } },
+--           ['typescript:S106'] = { level = 'on' },
+--           ['typescript:S107'] = { level = 'on', parameters = { maximumFunctionParameters = 7 } }
+--         }
+--       }
+--     }
+--   },
+--   filetypes = {
+--     -- Tested and working
+--     'python',
+--     'cpp',
+--     -- Requires nvim-jdtls, otherwise an error message will be printed
+--     'java',
+--   }
+-- })
