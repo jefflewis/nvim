@@ -9,20 +9,20 @@ local c = require("tokyonight.colors").setup()
 -- │ Setup Colorscheme                                        │
 -- ╰──────────────────────────────────────────────────────────╯
 tokyonight.setup({
-  style = "moon",
+  style = "night",
   light_style = "day",
   transparent = true,     -- vim.g.neovide and true or false, -- Enable this to disable setting the background color
   terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
   styles = {
-    -- Style to be applied to different syntax groups
-    -- Value is any valid attr-list value `:help attr-list`
-    comments = "NONE",
-    keywords = "italic",
-    functions = "NONE",
-    variables = "NONE",
-    -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = vim.g.neovide and "dark" or "dark",                 -- style for sidebars, see below
-    floats = vim.g.neovide and "dark" or "dark",                   -- style for floating windows
+    --   -- Style to be applied to different syntax groups
+    --   -- Value is any valid attr-list value `:help attr-list`
+    --   comments = "NONE",
+    keywords = { italic = true },
+    --   functions = "NONE",
+    --   variables = "NONE",
+    --   -- Background styles. Can be "dark", "transparent" or "normal"
+    sidebars = "transparent",                                             -- style for sidebars, see below
+    floats = "transparent",                                               -- style for floating windows
   },
   sidebars = { "qf", "help", "snacks_layout_box", "snacks_picker_list" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
   day_brightness = 0.3,                                                   -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
@@ -30,7 +30,7 @@ tokyonight.setup({
   dim_inactive = false,                                                   -- dims inactive windows
   lualine_bold = false,                                                   -- When `true`, section headers in the lualine theme will be bold
 
-  cache = true,                                                           -- When set to true, the theme will be cached for better performance
+  cache = false,                                                          -- When set to true, the theme will be cached for better performance
   ---@type table<string, boolean|{enabled:boolean}>
   plugins = {
     -- enable all plugins when not using lazy.nvim
@@ -52,31 +52,31 @@ tokyonight.setup({
   --- You can override specific highlights to use other groups or a hex color
   --- function will be called with a Highlights and ColorScheme table
   -- on_highlights = function(highlights, colors) end,
-  on_highlights = function(hl, _color)
-    local prompt = "#FFA630"
-    local text = "#488dff"
-    local none = "None"
-
-    hl.TelescopeTitle = {
-      fg = prompt,
-      bg = none,
-    }
-    hl.TelescopeNormal = {
-      bg = none,
-      fg = none,
-    }
-    hl.TelescopeBorder = {
-      bg = none,
-      fg = none,
-    }
-    hl.TelescopeMatching = {
-      fg = prompt,
-      bg = none,
-    }
-    hl.MsgArea = {
-      fg = c.fg_dark,
-    }
-  end,
+  -- on_highlights = function(hl, _color)
+  --   local prompt = "#FFA630"
+  --   local text = "#488dff"
+  --   local none = "None"
+  --
+  --   hl.TelescopeTitle = {
+  --     fg = prompt,
+  --     bg = none,
+  --   }
+  --   hl.TelescopeNormal = {
+  --     bg = none,
+  --     fg = none,
+  --   }
+  --   hl.TelescopeBorder = {
+  --     bg = none,
+  --     fg = none,
+  --   }
+  --   hl.TelescopeMatching = {
+  --     fg = prompt,
+  --     bg = none,
+  --   }
+  --   hl.MsgArea = {
+  --     fg = c.fg_dark,
+  --   }
+  -- end,
 })
 
 local highlights = {
@@ -143,29 +143,29 @@ local highlights = {
 }
 
 
-for group, hl in pairs(highlights) do
-  vim.api.nvim_set_hl(0, group, hl)
-end
+-- for group, hl in pairs(highlights) do
+--   vim.api.nvim_set_hl(0, group, hl)
+-- end
 
-local neovide_highlights = {
-  -- VertSplit                   = { bg = "#16161E", fg = "#1A1B26" },
-  -- NvimTreeWinSeparator        = { bg = "#16161E", fg = "None" },
-  -- WinSeparator                = { bg = "#16161E", fg = "#16161E" },
-  -- BufferLineBuffer            = { bg = "#1A1B26", fg = "#1A1B26" },
-  -- BufferLineTab               = { bg = "#1A1B26", fg = "#1A1B26" },
-  -- BufferLineFill              = { bg = "#1A1B26", fg = "#1A1B26" },
-  -- BufferLineTabSelected       = { bg = "#1A1B26", fg = "#7AA2F7" },
-  -- BufferLineSeparator         = { bg = "#1A1B26", fg = "#1A1B26" },
-  -- BufferTypeSeparator         = { bg = "#1A1B26", fg = "#1A1B26" },
-  -- BufferLineOffsetSeparator   = { bg = "#1A1B26", fg = "#1A1B26" },
-  -- BufferLineSeparatorSelected = { bg = "#1A1B26", fg = "#1A1B26" },
-}
-
-if vim.g.neovide then
-  for group, hl in pairs(neovide_highlights) do
-    vim.api.nvim_set_hl(0, group, hl)
-  end
-end
+-- local neovide_highlights = {
+--   -- VertSplit                   = { bg = "#16161E", fg = "#1A1B26" },
+--   -- NvimTreeWinSeparator        = { bg = "#16161E", fg = "None" },
+--   -- WinSeparator                = { bg = "#16161E", fg = "#16161E" },
+--   -- BufferLineBuffer            = { bg = "#1A1B26", fg = "#1A1B26" },
+--   -- BufferLineTab               = { bg = "#1A1B26", fg = "#1A1B26" },
+--   -- BufferLineFill              = { bg = "#1A1B26", fg = "#1A1B26" },
+--   -- BufferLineTabSelected       = { bg = "#1A1B26", fg = "#7AA2F7" },
+--   -- BufferLineSeparator         = { bg = "#1A1B26", fg = "#1A1B26" },
+--   -- BufferTypeSeparator         = { bg = "#1A1B26", fg = "#1A1B26" },
+--   -- BufferLineOffsetSeparator   = { bg = "#1A1B26", fg = "#1A1B26" },
+--   -- BufferLineSeparatorSelected = { bg = "#1A1B26", fg = "#1A1B26" },
+-- }
+--
+-- if vim.g.neovide then
+--   for group, hl in pairs(neovide_highlights) do
+--     vim.api.nvim_set_hl(0, group, hl)
+--   end
+-- end
 
 -- local fixBufferLineSeparator = function()
 --   vim.api.nvim_set_hl(0, "BufferLineOffsetSeparator", vim.api.nvim_get_hl_by_name('WinSeparator', true))

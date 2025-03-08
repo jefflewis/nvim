@@ -28,6 +28,20 @@ return {
       "marilari88/neotest-vitest",
     },
     config = function()
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>dxr",
+        "<cmd>lua require('neotest').run.run({ vitestCommand = 'vitest --watch' })<cr>",
+        { desc = "Run Watch" }
+      )
+
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>dxf",
+        "<cmd>lua require('neotest').run.run({ vim.fn.expand('%'), vitestCommand = 'vitest --watch' })<cr>",
+        { desc = "Run Watch File" }
+      )
+
       require('neotest').setup {
         adapters = {
           require("neotest-jest")({

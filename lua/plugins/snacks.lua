@@ -12,6 +12,7 @@ return {
       input        = { enabled = true },
       notifier     = { enabled = true },
       explorer     = { enabled = true },
+      image        = { enabled = true },
       picker       = {
         enabled = true,
         explorer = {

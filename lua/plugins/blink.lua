@@ -57,56 +57,58 @@ return {
         jump = function(direction) require('luasnip').jump(direction) end,
       },
 
-      sources = {
-        default = {
-          'lsp',
-          'path',
-          'snippets',
-          'buffer',
-          'codecompanion',
-          'copilot',
-        },
-        cmdline = {},
 
-        providers = {
-          codecompanion = {
-            name = "CodeCompanion",
-            module = "codecompanion.providers.completion.blink",
+      cmdline = {
+
+        sources = {
+          default = {
+            'lsp',
+            'path',
+            'snippets',
+            'buffer',
+            'codecompanion',
+            'copilot',
           },
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot",
-            opts = {
-              max_completions = 3,
-              max_attempts = 4,
+
+          providers = {
+            codecompanion = {
+              name = "CodeCompanion",
+              module = "codecompanion.providers.completion.blink",
             },
-            score_offset = 100,
-            async = true,
-            transform_items = function(_, items)
-              local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-              local kind_idx = #CompletionItemKind + 1
-              CompletionItemKind[kind_idx] = "Copilot"
-              for _, item in ipairs(items) do
-                item.kind = kind_idx
-              end
-              return items
-            end,
-          },
-          -- npm = {
-          --   name = 'npm',
-          --   module = 'blink.compat.source',
-          --
-          --   -- all blink.cmp source config options work as normal:
-          --   -- score_offset = -3,
-          --
-          --   opts = {
-          --     ignore = {},
-          --     only_semantic_versions = false,
-          --   },
-          -- },
-        }
+            copilot = {
+              name = "copilot",
+              module = "blink-copilot",
+              opts = {
+                max_completions = 3,
+                max_attempts = 4,
+              },
+              score_offset = 100,
+              async = true,
+              transform_items = function(_, items)
+                local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+                local kind_idx = #CompletionItemKind + 1
+                CompletionItemKind[kind_idx] = "Copilot"
+                for _, item in ipairs(items) do
+                  item.kind = kind_idx
+                end
+                return items
+              end,
+            },
+            -- npm = {
+            --   name = 'npm',
+            --   module = 'blink.compat.source',
+            --
+            --   -- all blink.cmp source config options work as normal:
+            --   -- score_offset = -3,
+            --
+            --   opts = {
+            --     ignore = {},
+            --     only_semantic_versions = false,
+            --   },
+            -- },
+          }
+        },
       },
-
       completion = {
         trigger = {
           -- When true, will show the completion window after typing a trigger character

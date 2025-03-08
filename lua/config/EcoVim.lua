@@ -9,7 +9,7 @@
 local icons = require("utils.icons")
 
 EcoVim = {
-  colorscheme = "xcodedark",
+  colorscheme = "tokyonight-night",
   ui = {
     font = { "OperatorMonoLig Nerd Font", ":h16" },
     float = {
@@ -27,7 +27,7 @@ EcoVim = {
       },
     },
     completion = {
-      select_first_on_enter = false,
+      select_first_on_enter = true,
     },
     -- Completely replaces the UI for messages, cmdline and the popupmenu
     experimental_noice = {

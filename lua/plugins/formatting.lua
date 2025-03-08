@@ -5,28 +5,45 @@ return {
     config = function()
       local conform = require("conform")
 
+      ---@param bufnr integer
+      ---@param ... string
+      ---@return string
+      local function first(bufnr, ...)
+        for i = 1, select("#", ...) do
+          local formatter = select(i, ...)
+          if conform.get_formatter_info(formatter, bufnr).available then
+            return formatter
+          end
+        end
+        return select(1, ...)
+      end
+
+      local firstPrettier = function(bufnr)
+        return { first(bufnr, "prettierd", "prettier"), "injected" }
+      end
+
       conform.setup({
         format_on_save = {
           timeout_ms = 1500,
           lsp_format = "fallback"
         },
         formatters_by_ft = {
-          css = { { "prettierd", "prettier" } },
-          graphql = { { "prettierd", "prettier" } },
-          html = { { "prettierd", "prettier" } },
-          javascript = { { "prettierd", "prettier" } },
-          javascriptreact = { { "prettierd", "prettier" } },
-          json = { { "prettierd", "prettier" } },
+          css = firstPrettier,
+          graphql = firstPrettier,
+          html = firstPrettier,
+          javascript = firstPrettier,
+          javascriptreact = firstPrettier,
+          json = firstPrettier,
           lua = { "stylua" },
-          markdown = { { "prettierd", "prettier" } },
+          markdown = firstPrettier,
           python = { "isort", "black" },
           ruby = { "standardrb" },
           sql = { "sql-formatter" },
           swift = { "swift_format" },
-          svelte = { { "prettierd", "prettier" } },
-          typescript = { { "prettierd", "prettier", "sql-formatter" } },
-          typescriptreact = { { "prettierd", "prettier" } },
-          yaml = { "prettier" },
+          svelte = firstPrettier,
+          typescript = firstPrettier,
+          typescriptreact = firstPrettier,
+          yaml = firstPrettier,
           xml = { "xmlformatter" }
         },
       })
